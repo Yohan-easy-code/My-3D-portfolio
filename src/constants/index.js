@@ -16,6 +16,9 @@ import {
   git,
   figma,
   docker,
+  portal,
+  reactJourney,
+  movieFinder,
   carrent,
   jobit,
   tripguide,
@@ -202,58 +205,47 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "3D-portal",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "A modern and visually polished web portal featuring smooth navigation, strong branding, and immersive 3D elements for an elegant user experience.",
+    tags: [
+      {
+        name: "threejs",
+        color: "orange-text-gradient",
+      },
+    ],
+    image: portal,
+    source_code_link:
+      "https://github.com/Yohan-easy-code/threejs2-deploy/tree/main/dist",
+  },
+  {
+    name: "Begin-react-journey",
+    description:
+      "An interactive React journey app that guides users through components, hooks, state managers and design patterns in one seamless experience.",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
       },
-      {
-        name: "mongodb",
-        color: "green-text-gradient",
-      },
-      {
-        name: "tailwind",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: carrent,
-    source_code_link: "https://github.com/",
-  },
-  {
-    name: "Job IT",
-    description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
-    tags: [
-      {
-        name: "react",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "restapi",
-        color: "green-text-gradient",
-      },
-      {
-        name: "scss",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: jobit,
-    source_code_link: "https://github.com/",
-  },
-  {
-    name: "Trip Guide",
-    description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
-    tags: [
       {
         name: "nextjs",
+        color: "green-text-gradient",
+      },
+    ],
+    image: reactJourney,
+    source_code_link: "https://github.com/Yohan-easy-code/Begin-react-journey",
+  },
+  {
+    name: "Search movie",
+    description:
+      "A streamlined movie search tool built with React, letting users quickly find films, view details and explore results.",
+    tags: [
+      {
+        name: "reactjs",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "nextjs",
         color: "green-text-gradient",
       },
       {
@@ -261,8 +253,8 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    image: movieFinder,
+    source_code_link: "https://github.com/Yohan-easy-code/Search-movie",
   },
 ];
 

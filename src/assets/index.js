@@ -33,8 +33,14 @@ import freelance from "./company/freelance.png";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
+import portal from "./portal.png";
+import reactJourney from "./reactJourney.png";
+import movieFinder from "./movieFinder.png";
 
 export {
+  movieFinder,
+  reactJourney,
+  portal,
   freelance,
   agence39,
   bhcompetences,
