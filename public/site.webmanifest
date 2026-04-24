@@ -1,0 +1,16 @@
+{
+  "name": "Yohan Zouari | 3D Portfolio",
+  "short_name": "YZ Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

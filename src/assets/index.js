@@ -21,21 +21,15 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
 
-import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
-import starbucks from "./company/starbucks.png";
-import tesla from "./company/tesla.png";
 import dsp from "./company/dsp.png";
 import bhcompetences from "./company/bh-competences.png";
 import agence39 from "./company/agence39.png";
 import freelance from "./company/freelance.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
 import portal from "./portal.png";
 import reactJourney from "./reactJourney.png";
 import movieFinder from "./movieFinder.png";
+import youCode from "./youCode.png";
 
 export {
   movieFinder,
@@ -66,11 +60,5 @@ export {
   tailwind,
   typescript,
   threejs,
-  meta,
-  shopify,
-  starbucks,
-  tesla,
-  carrent,
-  jobit,
-  tripguide,
+  youCode,
 };

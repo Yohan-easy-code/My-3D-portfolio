@@ -8,9 +8,11 @@ import { motion } from "framer-motion";
 import "react-vertical-timeline-component/style.min.css";
 
 import { styles } from "../styles";
-import { experiences } from "../constants";
+import { experiences } from "../constants/site";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
+
+const MotionDiv = motion.div;
 
 const ExperienceCard = ({ experience }) => {
   return (
@@ -42,6 +44,19 @@ const ExperienceCard = ({ experience }) => {
         </p>
       </div>
 
+      {experience.badges?.length ? (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {experience.badges.map((badge) => (
+            <span
+              key={badge}
+              className="rounded-full border border-[#915eff]/30 bg-[#915eff]/10 px-3 py-1 text-[12px] font-semibold tracking-[0.08em] text-[#d4c7ff]"
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
       <ul className="mt-5 list-disc ml-5 space-y-2">
         {experience.points.map((point, index) => (
           <li
@@ -59,14 +74,14 @@ const ExperienceCard = ({ experience }) => {
 const Experience = () => {
   return (
     <>
-      <motion.div variants={textVariant()}>
+      <MotionDiv variants={textVariant()}>
         <p className={`${styles.sectionSubText} text-center`}>
           What I have done so far
         </p>
         <h2 className={`${styles.sectionHeadText} text-center`}>
           Work Experience.
         </h2>
-      </motion.div>
+      </MotionDiv>
 
       <div className="mt-20 flex flex-col">
         <VerticalTimeline>
@@ -82,4 +97,6 @@ const Experience = () => {
   );
 };
 
-export default SectionWrapper(Experience, "work");
+const ExperienceSection = SectionWrapper(Experience, "work");
+
+export default ExperienceSection;
