@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -34,6 +34,7 @@ const HeroStaticVisual = () => (
 );
 
 const Hero = () => {
+  const [hideOffice3D, setHideOffice3D] = useState(false);
   const { isEligible, shouldRenderThree } = useDeferredThreeScene({
     delayMs: 650,
     minWidthPx: 1024,
@@ -82,7 +83,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      {isEligible ? (
+      {hideOffice3D ? (
+        <HeroStaticVisual />
+      ) : isEligible ? (
         shouldRenderThree ? (
           <Suspense fallback={<CanvasSkeleton variant="hero" />}>
             <ComputersCanvas />
@@ -94,7 +97,7 @@ const Hero = () => {
         <HeroStaticVisual />
       )}
 
-      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">
+      <div className="absolute xs:bottom-10 bottom-32 z-30 w-full flex justify-center items-center gap-4 px-6">
         <a href="#about">
           <div className="w-[35px] h-16 rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <MotionDiv
@@ -110,6 +113,18 @@ const Hero = () => {
             />
           </div>
         </a>
+        <button
+          type="button"
+          aria-pressed={hideOffice3D}
+          onClick={() => setHideOffice3D((current) => !current)}
+          className={`rounded-full border px-5 py-3 text-sm font-semibold shadow-lg backdrop-blur transition ${
+            hideOffice3D
+              ? "border-[#915eff] bg-[#915eff] text-white shadow-[#915eff]/30"
+              : "border-white/20 bg-white text-black hover:bg-slate-100"
+          }`}
+        >
+          hide 3D Office
+        </button>
       </div>
     </section>
   );
