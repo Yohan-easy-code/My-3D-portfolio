@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Spline from "@splinetool/react-spline";
 
 import Navbar from "../components/Navbar";
 import { styles } from "../styles";
@@ -44,6 +45,45 @@ const landingConcepts = [
   },
 ];
 
+const FoxSplineScene = () => {
+  const handleLoad = (spline) => {
+    spline.setBackgroundColor?.("rgba(0,0,0,0)");
+
+    const triggerHeartAnimation = () => {
+      spline.play?.();
+      spline.setGlobalEvents?.(true);
+
+      const heart = spline.findObjectByName?.("heart");
+      if (heart?.emitEvent) {
+        heart.emitEvent("mouseDown");
+      } else if (heart?.uuid) {
+        spline.emitEvent("mouseDown", heart.uuid);
+      }
+
+      spline.requestRender?.();
+    };
+
+    requestAnimationFrame(triggerHeartAnimation);
+    window.setTimeout(triggerHeartAnimation, 300);
+  };
+
+  return (
+    <div
+      data-fox-spline
+      className="mt-10 aspect-[4/3] w-[300px] max-w-full overflow-hidden bg-transparent sm:w-[420px]"
+    >
+      <Spline
+        scene="/fox/public/scene.splinecode"
+        wasmPath="/fox/public/"
+        renderOnDemand={false}
+        onLoad={handleLoad}
+        className="h-full w-full bg-transparent"
+        style={{ background: "transparent" }}
+      />
+    </div>
+  );
+};
+
 const Projects = () => {
   return (
     <div className="min-h-screen bg-primary text-white">
@@ -61,6 +101,7 @@ const Projects = () => {
             storytelling, and clearer conversion paths. Only concepts that are
             ready to review are clickable.
           </p>
+          <FoxSplineScene />
         </header>
       </div>
 

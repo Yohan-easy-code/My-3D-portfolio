@@ -34,16 +34,16 @@ const HeroStaticVisual = () => (
 );
 
 const Hero = () => {
-  const [hideOffice3D, setHideOffice3D] = useState(false);
+  const [hideAvatar3D, setHideAvatar3D] = useState(false);
   const { isEligible, shouldRenderThree } = useDeferredThreeScene({
     delayMs: 650,
-    minWidthPx: 1024,
+    minWidthPx: 0,
   });
 
   return (
     <section className="relative w-full h-screen mx-auto">
       <div
-        className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}
+        className={`${styles.paddingX} pointer-events-none absolute inset-0 top-[120px] z-20 max-w-7xl mx-auto flex flex-row items-start gap-5`}
       >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#915eff]" />
@@ -70,20 +70,20 @@ const Hero = () => {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               to="/projects"
-              className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-slate-100"
+              className="pointer-events-auto rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-slate-100"
             >
               Explore concepts
             </Link>
             <Link
               to="/#contact"
-              className="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/10"
+              className="pointer-events-auto rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/10"
             >
               Start a project
             </Link>
           </div>
         </div>
       </div>
-      {hideOffice3D ? (
+      {hideAvatar3D ? (
         <HeroStaticVisual />
       ) : isEligible ? (
         shouldRenderThree ? (
@@ -115,15 +115,15 @@ const Hero = () => {
         </a>
         <button
           type="button"
-          aria-pressed={hideOffice3D}
-          onClick={() => setHideOffice3D((current) => !current)}
+          aria-pressed={hideAvatar3D}
+          onClick={() => setHideAvatar3D((current) => !current)}
           className={`rounded-full border px-5 py-3 text-sm font-semibold shadow-lg backdrop-blur transition ${
-            hideOffice3D
+            hideAvatar3D
               ? "border-[#915eff] bg-[#915eff] text-white shadow-[#915eff]/30"
               : "border-white/20 bg-white text-black hover:bg-slate-100"
           }`}
         >
-          hide 3D Office
+          hide 3D avatar
         </button>
       </div>
     </section>
