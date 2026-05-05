@@ -1,4 +1,4 @@
-# Untitled
+# fox
 
 This project has been exported from [Spline](https://spline.design/).
 
