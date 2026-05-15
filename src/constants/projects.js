@@ -5,8 +5,10 @@ import movieFinder from "../assets/movieFinder.png";
 export const projects = [
   {
     name: "3D Portal",
-    description:
-      "An immersive portal concept focused on motion, strong branding, and spatial storytelling through 3D scenes.",
+    description: {
+      en: "An immersive portal concept focused on motion, strong branding, and spatial storytelling through 3D scenes.",
+      fr: "Un concept de portail immersif centré sur le mouvement, une identité forte et une narration spatiale en 3D.",
+    },
     tags: [
       {
         name: "threejs",
@@ -23,8 +25,10 @@ export const projects = [
   },
   {
     name: "YouCode",
-    description:
-      "A course platform concept with learner progress, content management, and an admin layer oriented around clarity and growth.",
+    description: {
+      en: "A course platform concept with learner progress, content management, and an admin layer oriented around clarity and growth.",
+      fr: "Un concept de plateforme de cours avec suivi des apprenants, gestion de contenu et couche admin pensée pour la clarté et la progression.",
+    },
     tags: [
       {
         name: "react",
@@ -44,8 +48,10 @@ export const projects = [
   },
   {
     name: "Search Movie",
-    description:
-      "A lightweight movie search experience built around clean UI states, quick results, and a simpler browsing flow.",
+    description: {
+      en: "A lightweight movie search experience built around clean UI states, quick results, and a simpler browsing flow.",
+      fr: "Une expérience légère de recherche de films, construite autour d'états d'interface propres, de résultats rapides et d'un parcours simplifié.",
+    },
     tags: [
       {
         name: "reactjs",

@@ -10,11 +10,14 @@ import "react-vertical-timeline-component/style.min.css";
 import { styles } from "../styles";
 import { experiences } from "../constants/site";
 import { SectionWrapper } from "../hoc";
+import { useLanguage } from "../i18n/languageCore";
 import { textVariant } from "../utils/motion";
 
 const MotionDiv = motion.div;
 
 const ExperienceCard = ({ experience }) => {
+  const { t } = useLanguage();
+
   return (
     <VerticalTimelineElement
       contentStyle={{
@@ -22,7 +25,7 @@ const ExperienceCard = ({ experience }) => {
         color: "#fff",
       }}
       contentArrowStyle={{ borderRight: "7px solid  #232631" }}
-      date={experience.date}
+      date={t(experience.date)}
       iconStyle={{ background: experience.iconBg }}
       icon={
         <div className="flex justify-center items-center w-full h-full">
@@ -35,7 +38,9 @@ const ExperienceCard = ({ experience }) => {
       }
     >
       <div>
-        <h3 className="text-white text-[24px] font-bold">{experience.title}</h3>
+        <h3 className="text-white text-[24px] font-bold">
+          {t(experience.title)}
+        </h3>
         <p
           className="text-secondary text-[16px] font-semibold"
           style={{ margin: 0 }}
@@ -48,10 +53,10 @@ const ExperienceCard = ({ experience }) => {
         <div className="mt-4 flex flex-wrap gap-2">
           {experience.badges.map((badge) => (
             <span
-              key={badge}
+              key={typeof badge === "string" ? badge : badge.en}
               className="rounded-full border border-[#915eff]/30 bg-[#915eff]/10 px-3 py-1 text-[12px] font-semibold tracking-[0.08em] text-[#d4c7ff]"
             >
-              {badge}
+              {t(badge)}
             </span>
           ))}
         </div>
@@ -63,7 +68,7 @@ const ExperienceCard = ({ experience }) => {
             key={`experience-point-${index}`}
             className="text-white-100 text-[14px] pl-1 tracking-wider"
           >
-            {point}
+            {t(point)}
           </li>
         ))}
       </ul>
@@ -72,14 +77,19 @@ const ExperienceCard = ({ experience }) => {
 };
 
 const Experience = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <MotionDiv variants={textVariant()}>
         <p className={`${styles.sectionSubText} text-center`}>
-          What I have done so far
+          {t({
+            en: "What I have done so far",
+            fr: "Ce que j'ai réalisé jusqu'ici",
+          })}
         </p>
         <h2 className={`${styles.sectionHeadText} text-center`}>
-          Work Experience.
+          {t({ en: "Work Experience.", fr: "Expérience professionnelle." })}
         </h2>
       </MotionDiv>
 

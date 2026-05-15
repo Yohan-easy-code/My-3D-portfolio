@@ -4,6 +4,7 @@ import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
+import { useLanguage } from "../i18n/languageCore";
 import { slideIn } from "../utils/motion";
 import { CanvasSkeleton } from "./skeletons";
 
@@ -17,6 +18,7 @@ const initialFormState = {
 
 const Contact = () => {
   const formRef = useRef();
+  const { t } = useLanguage();
   const [form, setForm] = useState(initialFormState);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({
@@ -49,7 +51,13 @@ const Contact = () => {
 
     setForm(sanitizedForm);
     setLoading(true);
-    setStatus({ type: "info", message: "Sending your message..." });
+    setStatus({
+      type: "info",
+      message: t({
+        en: "Sending your message...",
+        fr: "Envoi de votre message...",
+      }),
+    });
 
     try {
       await emailjs.send(
@@ -67,14 +75,19 @@ const Contact = () => {
       setForm(initialFormState);
       setStatus({
         type: "success",
-        message: "Message sent. I will reply as soon as possible.",
+        message: t({
+          en: "Message sent. I will reply as soon as possible.",
+          fr: "Message envoyé. Je vous répondrai dès que possible.",
+        }),
       });
     } catch (error) {
       console.error(error);
       setStatus({
         type: "error",
-        message:
-          "Message could not be sent right now. Please try again or email me directly at yohan.procontact@gmail.com.",
+        message: t({
+          en: "Message could not be sent right now. Please try again or email me directly at yohan.procontact@gmail.com.",
+          fr: "Le message n'a pas pu être envoyé pour le moment. Réessayez ou contactez-moi directement à yohan.procontact@gmail.com.",
+        }),
       });
     } finally {
       setLoading(false);
@@ -87,15 +100,21 @@ const Contact = () => {
         variants={slideIn("left", "tween", 0.5, 1)}
         className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
       >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <p className={styles.sectionSubText}>
+          {t({ en: "Get in touch", fr: "Entrer en contact" })}
+        </p>
+        <h3 className={styles.sectionHeadText}>
+          {t({ en: "Contact.", fr: "Contact." })}
+        </h3>
         <form
           ref={formRef}
           onSubmit={handleSubmit}
           className="mt-12 flex flex-col gap-8"
         >
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
+            <span className="text-white font-medium mb-4">
+              {t({ en: "Your Name", fr: "Votre nom" })}
+            </span>
             <input
               type="text"
               name="name"
@@ -104,13 +123,18 @@ const Contact = () => {
               required
               minLength={2}
               autoComplete="name"
-              placeholder="What's your name ?"
+              placeholder={t({
+                en: "What's your name?",
+                fr: "Quel est votre nom ?",
+              })}
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white
                rounded-lg border border-transparent font-medium outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/40"
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Email</span>
+            <span className="text-white font-medium mb-4">
+              {t({ en: "Your Email", fr: "Votre email" })}
+            </span>
             <input
               type="email"
               name="email"
@@ -119,13 +143,18 @@ const Contact = () => {
               required
               autoComplete="email"
               inputMode="email"
-              placeholder="What's your email ?"
+              placeholder={t({
+                en: "What's your email?",
+                fr: "Quel est votre email ?",
+              })}
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white
                rounded-lg border border-transparent font-medium outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/40"
             />
           </label>
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
+            <span className="text-white font-medium mb-4">
+              {t({ en: "Your Message", fr: "Votre message" })}
+            </span>
             <textarea
               rows={7}
               name="message"
@@ -133,7 +162,10 @@ const Contact = () => {
               onChange={handleChange}
               required
               minLength={10}
-              placeholder="What do you want to say ?"
+              placeholder={t({
+                en: "What do you want to say?",
+                fr: "Que souhaitez-vous dire ?",
+              })}
               className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white
                rounded-lg border border-transparent font-medium outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/40"
             />
@@ -157,7 +189,9 @@ const Contact = () => {
             disabled={loading}
             className="bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {loading ? "Sending..." : "Send"}
+            {loading
+              ? t({ en: "Sending...", fr: "Envoi..." })
+              : t({ en: "Send", fr: "Envoyer" })}
           </button>
         </form>
       </MotionDiv>

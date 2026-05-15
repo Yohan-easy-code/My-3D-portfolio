@@ -3,18 +3,34 @@ import { Link, useLocation } from "react-router-dom";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants/site";
+import {
+  getLocalizedPath,
+  stripLanguagePathname,
+  useLanguage,
+} from "../i18n/languageCore";
+import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "../assets/logo.svg";
 import menu from "../assets/menu.svg";
 import close from "../assets/close.svg";
 
-const getActiveLinkTitle = ({ pathname, hash }) => {
-  if (pathname === "/projects" || pathname === "/bento-box-archi") {
-    return "Projects";
+const brandRole = {
+  en: "Web Engineer",
+  fr: "Ingénieur web",
+};
+
+const getActiveLinkId = ({ pathname, hash }) => {
+  const pathnameWithoutLanguage = stripLanguagePathname(pathname);
+
+  if (
+    pathnameWithoutLanguage === "/projects" ||
+    pathnameWithoutLanguage === "/bento-box-archi"
+  ) {
+    return "projects";
   }
 
-  if (pathname === "/" && hash) {
+  if (pathnameWithoutLanguage === "/" && hash) {
     const match = navLinks.find((link) => link.to === `/${hash}`);
-    return match?.title ?? "";
+    return match?.id ?? "";
   }
 
   return "";
@@ -23,7 +39,8 @@ const getActiveLinkTitle = ({ pathname, hash }) => {
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
-  const active = getActiveLinkTitle(location);
+  const active = getActiveLinkId(location);
+  const { language, t } = useLanguage();
 
   const handleNavClick = () => {
     setToggle(false);
@@ -36,7 +53,7 @@ const Navbar = () => {
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
-          to={"/"}
+          to={getLocalizedPath("/", language)}
           className="flex items-center gap-2"
           onClick={() => {
             setToggle(false);
@@ -46,23 +63,29 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="w-30 h-20 object-contain" />
           <p className="text-white text-[18px] font-bold cursor-pointer flex">
             Yohan Zouari &nbsp;
-            <span className="sm:block hidden">| Web Engineer</span>
+            <span className="sm:block hidden">| {t(brandRole)}</span>
           </p>
         </Link>
-        <ul className="list-none hidden sm:flex flex-row gap-10">
-          {navLinks.map((link) => (
-            <li
-              key={link.id}
-              className={`${
-                active === link.title ? "text-white" : "text-secondary"
-              } hover:text-white text-[18px] font-medium cursor-pointer`}
-            >
-              <Link to={link.to} onClick={handleNavClick}>
-                {link.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden items-center gap-8 sm:flex">
+          <ul className="list-none flex flex-row gap-10">
+            {navLinks.map((link) => (
+              <li
+                key={link.id}
+                className={`${
+                  active === link.id ? "text-white" : "text-secondary"
+                } hover:text-white text-[18px] font-medium cursor-pointer`}
+              >
+                <Link
+                  to={getLocalizedPath(link.to, language)}
+                  onClick={handleNavClick}
+                >
+                  {t(link.title)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <LanguageSwitcher />
+        </div>
         <div className="sm:hidden flex flex-1 justify-end items-center">
           <button
             type="button"
@@ -82,21 +105,27 @@ const Navbar = () => {
             id="mobile-navigation"
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[190px] z-10 rounded-xl`}
           >
             <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
                   className={`${
-                    active === link.title ? "text-white" : "text-secondary"
+                    active === link.id ? "text-white" : "text-secondary"
                   } font-poppins font-medium cursor-pointer text-[16px]`}
                 >
-                  <Link to={link.to} onClick={handleNavClick}>
-                    {link.title}
+                  <Link
+                    to={getLocalizedPath(link.to, language)}
+                    onClick={handleNavClick}
+                  >
+                    {t(link.title)}
                   </Link>
                 </li>
               ))}
+              <li className="mt-2 w-full">
+                <LanguageSwitcher compact />
+              </li>
             </ul>
           </div>
         </div>

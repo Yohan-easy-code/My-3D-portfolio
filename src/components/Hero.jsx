@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { CanvasSkeleton } from "./skeletons";
 import useDeferredThreeScene from "../hooks/useDeferredThreeScene";
+import { getLocalizedPath, useLanguage } from "../i18n/languageCore";
 
 const ComputersCanvas = lazy(() => import("./canvas/Computers"));
 const MotionDiv = motion.div;
 const heroSignals = [
-  "Landing pages",
-  "Portfolio websites",
-  "3D art direction",
+  { en: "Landing pages", fr: "Landing pages" },
+  { en: "Portfolio websites", fr: "Sites portfolio" },
+  { en: "3D art direction", fr: "Direction artistique 3D" },
 ];
 
 const HeroStaticVisual = () => (
@@ -35,6 +36,7 @@ const HeroStaticVisual = () => (
 
 const Hero = () => {
   const [hideAvatar3D, setHideAvatar3D] = useState(false);
+  const { language, t } = useLanguage();
   const { isEligible, shouldRenderThree } = useDeferredThreeScene({
     delayMs: 650,
     minWidthPx: 0,
@@ -51,34 +53,42 @@ const Hero = () => {
         </div>
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className="text-[#915eff]">Yohan</span>
+            {t({ en: "Hi, I'm", fr: "Salut, moi c'est" })}{" "}
+            <span className="text-[#915eff]">Yohan</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop 3D visuals, user <br className="sm:block hidden" />{" "}
-            interfaces and web applications
+            {t({
+              en: "I develop 3D visuals, user",
+              fr: "Je développe des visuels 3D, des",
+            })}{" "}
+            <br className="sm:block hidden" />{" "}
+            {t({
+              en: "interfaces and web applications",
+              fr: "interfaces et des applications web",
+            })}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {heroSignals.map((item) => (
               <span
-                key={item}
+                key={item.en}
                 className="rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm text-white/80 backdrop-blur"
               >
-                {item}
+                {t(item)}
               </span>
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
-              to="/projects"
+              to={getLocalizedPath("/projects", language)}
               className="pointer-events-auto rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-slate-100"
             >
-              Explore concepts
+              {t({ en: "Explore concepts", fr: "Explorer les concepts" })}
             </Link>
             <Link
-              to="/#contact"
+              to={getLocalizedPath("/#contact", language)}
               className="pointer-events-auto rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/10"
             >
-              Start a project
+              {t({ en: "Start a project", fr: "Lancer un projet" })}
             </Link>
           </div>
         </div>
@@ -123,7 +133,7 @@ const Hero = () => {
               : "border-white/20 bg-white text-black hover:bg-slate-100"
           }`}
         >
-          hide 3D avatar
+          {t({ en: "hide 3D avatar", fr: "masquer l'avatar 3D" })}
         </button>
       </div>
     </section>

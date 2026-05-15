@@ -9,6 +9,7 @@ import {
   ProjectsPageSkeleton,
   SectionSkeleton,
 } from "./components/skeletons";
+import { getLanguageFromPathname, useLanguage } from "./i18n/languageCore";
 
 const Experience = lazy(() => import("./components/Experience"));
 const Tech = lazy(() => import("./components/Tech"));
@@ -33,6 +34,21 @@ const ScrollToHash = () => {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }, [hash, pathname]);
+
+  return null;
+};
+
+const LanguageUrlSync = () => {
+  const { pathname } = useLocation();
+  const { language, setLanguage } = useLanguage();
+
+  useEffect(() => {
+    const urlLanguage = getLanguageFromPathname(pathname);
+
+    if (urlLanguage !== language) {
+      setLanguage(urlLanguage);
+    }
+  }, [language, pathname, setLanguage]);
 
   return null;
 };
@@ -69,9 +85,11 @@ const HomePage = () => (
 
 const App = () => (
   <BrowserRouter>
+    <LanguageUrlSync />
     <ScrollToHash />
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/fr" element={<HomePage />} />
       <Route
         path="/projects"
         element={
@@ -81,7 +99,23 @@ const App = () => (
         }
       />
       <Route
+        path="/fr/projects"
+        element={
+          <Suspense fallback={<ProjectsPageSkeleton />}>
+            <Projects />
+          </Suspense>
+        }
+      />
+      <Route
         path="/bento-box-archi"
+        element={
+          <Suspense fallback={<BentoPageSkeleton />}>
+            <BentoBoxArchi />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/fr/bento-box-archi"
         element={
           <Suspense fallback={<BentoPageSkeleton />}>
             <BentoBoxArchi />
